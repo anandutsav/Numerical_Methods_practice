@@ -1,2 +1,2 @@
 # Numerical_Methods_practice
-Id be programs assigned by Professor Leriche
+I will be putting programs assigned by Professor Leriche in this repository.
