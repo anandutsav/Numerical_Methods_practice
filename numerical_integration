@@ -1,0 +1,77 @@
+PROGRAM numerical_integration
+! A calculation of integral of a function using rectangular, midpoint, trapezoidal, Simpson methods.
+! Assigned by Prof. Emmanuel Leriche
+
+IMPLICIT NONE
+!declare variable when they appear
+INTEGER :: r, n, i, k
+REAl :: a, b, h, x, l, y, m, q, right_area, left_area, area
+a = 1
+b = 6
+right_area= 0
+left_area= 0
+area= 0
+y= 0
+m= 0
+n= 0
+
+WRITE (*,*) 'integration of (2+sin(2*sqrt(x))) on the domain (1,6)'
+WRITE (*,*) 'Choose type of integration by selecting one of 1, 2, 3, 4'
+WRITE (*,*) '1: Rectangular 2:Midpoint 3:Trapezoidal 4:Simpson '
+
+READ (*,*) r
+
+WRITE (*,*) 'Number of divisons:'
+READ (*,*) n
+h= (b-a)/n
+
+IF (r==1) THEN !integration using rectangular method
+  
+  DO  i = 0, n-1
+  l = a + h*i
+  y = y + (2+sin(2*sqrt(l)))
+  END DO
+  right_area = y*h
+
+  DO  k = 1, n
+  m = a + h*k
+  q = q + (2+sin(2*sqrt(m)))
+  END DO
+  left_area = q*h
+
+WRITE (*,*) ' Area with rectangular method= right, left :', right_area, left_area
+
+ELSE IF(r==2) THEN !integration using midpoint method
+  DO  i = 0, n-1
+  l = a + h*(i+.5)
+  y = y + (2+sin(2*sqrt(l)))
+  END DO
+  area = y*h
+WRITE (*,*) ' Area with midpoint method=', area
+
+ELSE IF (r==3) THEN !integration using trapezoidal method
+  DO  i = 1, n-1
+  l = a + h*i
+  y = y + (2*(2+sin(2*sqrt(l)))) !involves multiplication by 2
+  END DO
+area =h/2* (y + (2+sin(2*sqrt(a))) + (2+sin(2*sqrt(b))))
+WRITE (*,*) ' Area with trapezoidal method=', area 
+
+ELSE IF (r==4) THEN !integration by Simpson's one third method
+ DO  i = 0, n-2, 2
+  l = (a+h) + (h*i)
+  y = y + 4*(2+sin(2*sqrt(l)))
+  END DO
+  
+  DO  k = 0, n-4, 2
+  m = (a+2*h) + (h*k)
+  q = q + 2*(2+sin(2*sqrt(m)))
+  END DO
+  
+area =h/3* (y + q + (2+sin(2*sqrt(a))) + (2+sin(2*sqrt(b))))
+WRITE (*,*) ' Area with Simpson one third method=', area 
+
+ELSE
+WRITE (*,*) 'Please enter 1, 2, 3 or 4'
+END IF
+END PROGRAM numerical_integration  
