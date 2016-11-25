@@ -5,6 +5,7 @@ double precision, dimension(:,:), allocatable :: A
 real, dimension(:), allocatable :: b
 real, dimension(:), allocatable :: x
 real, dimension(:), allocatable :: d
+real, dimension(:), allocatable :: k
 real :: error
 print*, "enter the dimension of the square matrix i.e n"
 read* , n
@@ -12,6 +13,7 @@ allocate (A(n,n))
 allocate (b(n))
 allocate (x(n))
 allocate (d(n))
+allocate (k(n))
 do j= 1,n
   do i= 1,n
   A(i,j) = 0
@@ -34,6 +36,8 @@ do i = 1,n
     call random_number(b(i))
 end do
 print* , b
+
+k = b
 
 !call matrix_transform(A,b,n)
 
@@ -59,11 +63,13 @@ print*,
 d= matmul(A, x)
 print* , d
 
+
+
 do i =1,n
-error = abs(d(i)-b(i))
+error = abs(d(i)-k(i))
 write(*,*)  'error in x is (x1 to xn respectively) is :' , error
 end do
-
+print*, k
 
 end program thomas_algorithm
 
