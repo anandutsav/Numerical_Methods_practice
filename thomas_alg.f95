@@ -1,7 +1,7 @@
 program thomas_algorithm
 implicit none 
 integer :: n,i,j
-double precision, dimension(:,:), allocatable :: A
+real, dimension(:,:), allocatable :: A
 real, dimension(:), allocatable :: b
 real, dimension(:), allocatable :: x
 real, dimension(:), allocatable :: d
